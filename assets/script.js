@@ -3,7 +3,7 @@
  */
 
 (function (exports) {
-  var delay = 5000;
+  var delay = 1000;
   var imageWidth = 350; // == container for images on canvas.
   var imageHeight = 255;
   var loadingMain = document.getElementById('loading-main');
@@ -180,7 +180,7 @@
       var url = imageChartUrl(marketId, image.selectionId);
       var imageObj = new Image();
       imageObj.onload = function () {
-        console.log("let's go to draw.", image.name, imageObj.width);
+        console.log("let's go to draw.", image.name);
         $this.drawImage(imageObj, index, image);
       };
       imageObj.src = url;
