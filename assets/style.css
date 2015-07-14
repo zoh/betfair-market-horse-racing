@@ -1,7 +1,6 @@
 body {
 }
 
-
 .loading {
     position: absolute;
     top: 0;
@@ -50,4 +49,27 @@ body {
 
 .submenu li > a {
     padding: 5px 7px;
+}
+
+.github img {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+
+    -webkit-transition: all ease-out .4s;
+    -moz-transition: all .4s ease-out;
+    -ms-transition: all .4s ease-out;
+    -o-transition: all .4s ease-out;
+    transition: all .4s ease-out;
+}
+
+.github img:hover {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+}
+
+
+.loading .error {
+    display: none;
 }

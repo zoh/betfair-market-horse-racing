@@ -16,8 +16,9 @@ app.get('/markets', function (req, res) {
     if (err) {
       return res.json(500, err);
     }
+
     var $ = cheerio.load(body);
-    var all = $('#tab-day-2');
+    var all = $('.tabs > div:first-child');
     var $racingevents = all.find('.mod-racingevents-racingevents');
 
     var resAll = ($racingevents || []).map(function (i, item) {
@@ -35,7 +36,7 @@ app.get('/markets', function (req, res) {
           var link = $item.attr('href').match('/market/(.*)');
           var title = $item.attr('title');
           var date = $item.text();
-          var marketId = link[1];
+          var marketId = link && link[1];
           return {
             date: date,
             title: title,
@@ -73,7 +74,6 @@ app.get('/markets/:marketId', function (req, res) {
     if (err) {
       return res.json(500, err);
     }
-
     var runners = data.eventTypes[0].eventNodes[0].marketNodes[0].runners;
     res.json(runners);
   });

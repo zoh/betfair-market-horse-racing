@@ -24,33 +24,19 @@
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-              aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+    <div class="navbar-header" style="width: 100%">
       <a class="navbar-brand" href="#">BetFair Markets - Horse Racing</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <!--<ul class="nav navbar-nav navbar-right">-->
-      <!--<li><a href="#">Dashboard</a></li>-->
-      <!--<li><a href="#">Settings</a></li>-->
-      <!--<li><a href="#">Profile</a></li>-->
-      <!--<li><a href="#">Help</a></li>-->
-      <!--</ul>-->
-      <!--<form class="navbar-form navbar-right">-->
-      <!--<input type="text" class="form-control" placeholder="Search...">-->
-      <!--</form>-->
+
+      <a href="https://github.com/zoh/" class="pull-right github"
+         style="line-height: 50px;" target="_blank">
+        <img src="/GitHub-Mark-Light-32px.png" alt=""/></a>
     </div>
   </div>
 </nav>
 
 <div class="container-fluid" style="margin-top: 50px;">
   <div class="row">
-    <div class="col-lg-3 sidebar" style="padding-top: 25px;">
+    <div class="col-md-3 sidebar" style="padding-top: 25px;">
 
       <h2>Markets</h2>
 
@@ -71,15 +57,22 @@
 
     </div>
 
-    <div class="col-lg-9 main">
+    <div class="col-md-9 main" id="charts">
+      <div class="spinner" style="position: absolute; display: none;"></div>
       <h1 class="page-header">Charts</h1>
 
-      <canvas></canvas>
+      <canvas id="canvasCharts" width="100%"></canvas>
+      <hr/>
     </div>
   </div>
 </div>
 
-<section class="loading">
+<section id="loading-main" class="loading">
+  <div  class="alert alert-danger error" role="alert" style="width: 50%; margin: 0 auto;">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    Error for loading markets!
+  </div>
+
   <div class="spinner"></div>
 </section>
 

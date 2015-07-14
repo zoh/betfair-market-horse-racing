@@ -18,6 +18,9 @@
     "horse",
     "racing"
   ],
+  "scripts": {
+    "start": "node index.js"
+  },
   "author": "zoh",
   "license": "MIT"
 }
