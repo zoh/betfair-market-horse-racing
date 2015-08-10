@@ -10,11 +10,12 @@ app.get('/', function (req, res) {
   res.render('index.ejs', {title: 'Hey', message: 'Hello there!'});
 });
 
+var betFairUrl = 'https://www.betfair.com/exchange/horse-racing';
 
 app.get('/markets', function (req, res) {
-  request.get('https://www.betfair.com/exchange/horse-racing', function (err, headers, body) {
+  request.get(betFairUrl, function (err, headers, body) {
     if (err) {
-      return res.json(500, err);
+      return res.status(500).json(err);
     }
 
     var $ = cheerio.load(body);
@@ -52,7 +53,22 @@ app.get('/markets', function (req, res) {
 
     res.json(resAll);
   });
+});
 
+
+/**
+ * Get betfair o'clock the current time.
+ */
+app.get('/clock', function (req, res) {
+  request.get(betFairUrl, function (err, headers, body) {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    var $ = cheerio.load(body);
+    var clock = $('.ssc-clock');
+    res.json({clock: clock.text()});
+  });
 });
 
 
@@ -79,7 +95,17 @@ app.get('/markets/:marketId', function (req, res) {
   });
 });
 
-var server = app.listen(3000, function () {
+app.get('/chart/:marketId/:selectionId', function (req, res) {
+  var marketId = req.params.marketId;
+  var selectionId = req.params.selectionId;
+
+  var urlChart = 'https://sportsiteexweb.betfair.com/betting/LoadRunnerInfoChartAction.do?marketId=' + marketId +
+    '&selectionId=' + selectionId;
+  request.get(urlChart).pipe(res);
+});
+
+var port = process.env.PORT || 3000;
+var server = app.listen(port, function () {
   var host = server.address().address;
   var port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

@@ -3,7 +3,9 @@
  */
 
 (function (exports) {
-  var delay = 1000;
+  // todo: take out to config
+  var proxyCharts = true;
+  var delay = 1500;
   var imageWidth = 350; // == container for images on canvas.
   var imageHeight = 255;
   var loadingMain = document.getElementById('loading-main');
@@ -31,8 +33,10 @@
 
   function imageChartUrl(marketId, selectionId) {
     marketId = marketId.slice(2);
-    return 'https://sportsiteexweb.betfair.com/betting/LoadRunnerInfoChartAction.do?marketId=' + marketId +
-      '&selectionId=' + selectionId;
+    return !proxyCharts ?
+    'https://sportsiteexweb.betfair.com/betting/LoadRunnerInfoChartAction.do?marketId=' + marketId +
+    '&selectionId=' + selectionId :
+    '/chart/' + marketId + '/' + selectionId;
   }
 
   function removeNode(node) {
@@ -83,6 +87,20 @@
     html += '</ul>';
     this.marketsNav.innerHTML = html;
     this.delegation();
+    timerOnBetFairClock();
+  }
+
+  /**
+   * Update current time for 60 sec.
+   */
+  function timerOnBetFairClock() {
+    var fn = function () {
+      ajaxJson('/clock', function (res) {
+        document.querySelector('.bf-clock').innerHTML = res.clock;
+      }, console.log.bind(this));
+    };
+    setInterval(fn, 1000 * 60);
+    fn();
   }
 
   function textInfoOnCanvas(context) {
